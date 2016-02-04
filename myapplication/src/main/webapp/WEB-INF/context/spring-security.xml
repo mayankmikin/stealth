@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <global-method-security secured-annotations="enabled"></global-method-security>
+ <http auto-config="false" use-expressions="true"
+        entry-point-ref="authenticationEntryPoint">
+        <intercept-url pattern="/index.html" access="permitAll" />
+        <intercept-url pattern="/rest/**" access="permitAll"/>
+         <intercept-url pattern="/api/users/**" access="permitAll"/>
+    
+        <intercept-url pattern="/security/login.html" access="permitAll" />
+        <intercept-url pattern="/security/logout.html" access="permitAll" />
+        <intercept-url pattern="/security/denied.html" access="permitAll" />
+        <intercept-url pattern="/security/checkphone.html" access="permitAll" />
+        <intercept-url pattern="/security/checkemail.html" access="permitAll" />     
+        <intercept-url pattern="/security/resetpassword.html" access="permitAll" />
+		<intercept-url pattern="/home" access="hasRole('ROLE_USER')" />
+		 <intercept-url pattern="/**" access="isAuthenticated()" />
+        <access-denied-handler error-page="/security/denied.html" />
+
+        <logout invalidate-session="true" logout-success-url="/security/login.html"
+            logout-url="/security/logout.html" />
+        
+        <session-management>
+            <concurrency-control expired-url="/security/login.html" max-sessions="3" />
+        </session-management>
+
+        <custom-filter ref="authenticationFilter" position="FORM_LOGIN_FILTER" />
+
+    </http>
+
+    <beans:bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/security/login.html" />   
+    </beans:bean>
+
+    <beans:bean id="customAuthenticationManager" class="com.app.myapp.security.CustomAuthenticationManager" />
+    <beans:bean id="customAuthenticationSuccessHandler" class="com.app.myapp.security.CustomAuthenticationSuccessHandler" />
+    <beans:bean id="customAuthenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/security/login.html?error=true" />
+    </beans:bean>
+
+    <beans:bean id="authenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="customAuthenticationManager" />
+        <beans:property name="authenticationSuccessHandler" ref="customAuthenticationSuccessHandler" />
+        <beans:property name="authenticationFailureHandler" ref="customAuthenticationFailureHandler" />
+    </beans:bean>
+
+    <authentication-manager />
+    
+ 
+
+</beans:beans>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+    <definition name="baseLayout" template="/WEB-INF/views/tile/base.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header-content" value="/WEB-INF/views/tile/header.jsp" />
+        <put-attribute name="intern-content" value="" />
+        <put-attribute name="footer-content" value="/WEB-INF/views/tile/footer.jsp" />
+    </definition> 
+     <definition name="withoutmenuLayout" template="/WEB-INF/views/tile/base.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header-content" value="" />
+        <put-attribute name="intern-content" value="" />
+        <put-attribute name="footer-content" value="/WEB-INF/views/tile/footer.jsp" />
+    </definition>     
+
+    <definition name="home-index" extends="baseLayout">
+        <put-attribute name="title" value="Home" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/index.jsp" />
+    </definition>    
+    <definition name="physics-index" extends="baseLayout">
+        <put-attribute name="title" value="PhysicsHome" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/physics/index.jsp" />
+    </definition>  
+      <definition name="class-11-physics" extends="baseLayout">
+        <put-attribute name="title" value="PhysicsHome" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/physics/class_11_index.jsp" />
+    </definition>    
+     <definition name="class-12-physics" extends="baseLayout">
+        <put-attribute name="title" value="PhysicsHome" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/physics/class_12_index.jsp" />
+    </definition>    
+
+	 <definition name="user-register" extends="withoutmenuLayout">
+        <put-attribute name="title" value="PhysicsHome" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/pages/register.jsp" />
+    </definition> 
+     <definition name="user-registered" extends="withoutmenuLayout">
+        <put-attribute name="title" value="PhysicsHome" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/pages/registered.jsp" />
+    </definition>
+     <definition name="wrong-credentials" extends="withoutmenuLayout">
+        <put-attribute name="title" value="PhysicsHome" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/pages/registered.jsp" />
+    </definition>
+     <definition name="admin-panel" extends="withoutmenuLayout">
+        <put-attribute name="title" value="PhysicsHome" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/admin/dashboard.jsp" />
+    </definition>
+    <definition name="trackapp-index" extends="baseLayout">
+        <put-attribute name="title" value="Track App Home" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/trackapp/index.jsp" />
+    </definition>
+	
+	<definition name="rest-try" extends="baseLayout">
+        <put-attribute name="title" value="Track App Home" />
+        <put-attribute name="intern-content" value="/WEB-INF/views/trackapp/index.jsp" />
+    </definition>
+
+</tiles-definitions>
+
+
+
+
