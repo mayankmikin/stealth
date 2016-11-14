@@ -1,0 +1,19 @@
+INSERT INTO studybro.account(ID, ACCOUNT_TYPE, ACCESS_TYPE, USER_NAME, STATUS, VALIDITY, CREATED) VALUES (1, 'SU', 'ALL', 'mayank', 'A', '2016-09-06 23:59:42', '2015-09-06 23:59:42');
+INSERT INTO studybro.account(ID, ACCOUNT_TYPE, ACCESS_TYPE, USER_NAME, STATUS, VALIDITY, CREATED) VALUES (2, 'EU', 'LIM', 'Anshul', 'A', '2015-12-31 00:00:00', '2015-10-25 12:51:59');
+
+INSERT INTO studybro.admin(id, `key`, adminname) VALUES (1, 'abcd', 'Mayank Verma');
+
+INSERT INTO studybro.permission(ID, NAME) VALUES (1, 'MANAGE_ACCOUNT');
+INSERT INTO studybro.permission(ID, NAME) VALUES (2, 'MANAGE_ACCOUNT');
+
+
+INSERT INTO studybro.role(ID, NAME, TYPE, CREATED, ACCOUNT_ID) VALUES (1, 'mayank', 'SU', '2015-09-08 07:28:26', 1);
+INSERT INTO studybro.role(ID, NAME, TYPE, CREATED, ACCOUNT_ID) VALUES (2, 'anshul@traqmatix.com', 'EU', '2015-10-25 12:52:01', 2);
+
+INSERT INTO studybro.role_permission(ROLE_ID, PERMISSION_ID) VALUES (1, 1);
+
+INSERT INTO studybro.user(ID, NAME, PHONENUMBER, EMAILID, PASSWORD, ADDRESS, PINCODE, CITY, STATE, COUNTRY, GENDER, DOB, CREATED, STATUS, ACCOUNT_ID, ROLE_ID) VALUES (1, 'mayank', '8802962692', 'mayank.mikin@gmail.com', '123', 'New Delhi', '110045', 'Delhi', 'Delhi', 'India ', 'Male', '2015-12-27 13:35:09', '2015-10-11 00:48:22', 'A', 1, 1);
+INSERT INTO studybro.user(ID, NAME, PHONENUMBER, EMAILID, PASSWORD, ADDRESS, PINCODE, CITY, STATE, COUNTRY, GENDER, DOB, CREATED, STATUS, ACCOUNT_ID, ROLE_ID) VALUES (2, 'Anshul Kumar', '9871115882', 'anshul@traqmatix.com', '202cb962ac59075b964b07152d234b70', 'NEW DELHI', null, null, null, 'India', 'MALE', '2015-10-25 12:52:01', '2015-10-25 12:52:01', 'A', 2, 2);
+
+
+
