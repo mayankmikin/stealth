@@ -1,0 +1,322 @@
+jsp page required tags and knowledge and sample account create page
+
+1.way to send request to controller using spring jstl tags: <form:form modelAttribute="account"> </form:form>
+2. second way to send the request using simple html page is : <form id="report" name="report" method="post" action="<c:url value="/report/overspeedreport.html" />">
+</form>
+
+
+
+
+SAMPLE PAGE : ACCOUNT CREATE USING spring tag
+
+<%@ page language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+    $('#account').submit(function() {
+        var zoneID = $('#zoneID').val();
+        if($.trim(zoneID).length <= 0) {
+            $('#zoneID').css('background', 'yellow');
+            $('#zoneID').focus();
+            return false;
+        } else {
+            $('#zoneID').css('background', 'white');
+        }
+        var name = $('#name').val();
+        if($.trim(name).length <= 0) {
+            $('#name').css('background', 'yellow');
+            $('#name').focus();
+            return false;
+        } else {
+            $('#name').css('background', 'white');
+        }
+        var type = $('#type').val();
+        if($.trim(type).length <= 0) {
+            $('#type').css('background', 'yellow');
+            $('#type').focus();
+            return false;
+        } else {
+            $('#type').css('background', 'white');
+        }
+        var address = $('#address').val();
+        if($.trim(address).length <= 0) {
+            $('#address').css('background', 'yellow');
+            $('#address').focus();
+            return false;
+        } else {
+            $('#address').css('background', 'white');
+        }
+        var contact = $('#contact').val();
+        if($.trim(contact).length <= 0) {
+            $('#contact').css('background', 'yellow');
+            $('#contact').focus();
+            return false;
+        } else {
+            $('#contact').css('background', 'white');
+        }
+        var email = $('#email').val();
+        if($.trim(email).length <= 0) {
+            $('#email').css('background', 'yellow');
+            $('#email').focus();
+            return false;
+        } else {
+            var check = IsValidEmails(email);
+            if(check) {
+                $('#email').css('background', 'white');
+            } else {
+                $('#email').css('background', 'red');
+                $('#email').focus();
+                return false;
+            }
+        }
+        var phone = $('#phone').val();
+        if($.trim(phone).length <= 0) {
+            $('#phone').css('background', 'yellow');
+            $('#phone').focus();
+            return false;
+        } else {
+            var check = IsValidMobileNumbers(phone);
+            if(check) {
+                $('#phone').css('background', 'white');
+            } else {
+                $('#phone').css('background', 'red');
+                $('#phone').focus();
+                return false;
+            }
+        }
+        var smscap = $('#smscap').val();
+        if($.trim(smscap).length <= 0) {
+            $('#smscap').css('background', 'yellow');
+            $('#smscap').focus();
+            return false;
+        } else {
+            var val = parseInt($('#smscap').val());
+            if( isNaN(val) || val <= 0 ) {
+                $('#smscap').css('background', 'yellow');
+                $('#smscap').focus();
+                return false;
+            }
+            $('#smscap').css('background', 'white');
+        }
+    });
+});
+//-->
+</script>
+            <div class="pageheader">
+                <a href="<c:url value="<%= session.getAttribute(\"HOME_URL\").toString() %>" />"><spring:message code="HOME" /></a> &raquo; 
+                <a href="<c:url value="/account/index.html" />"><spring:message code="ACCOUNT_LINK" /></a> &raquo; 
+                <span class="lbl03"><spring:message code="CREATE" /> <spring:message code="ACCOUNT" /></span>
+            </div>
+            <div class="pageintern">
+                <div><span class="lbl04"><spring:message code="CREATE" /> <spring:message code="ACCOUNT" /></span>&nbsp;&nbsp;</div>
+                <div class="showtblbox">
+                    <form:form modelAttribute="account">
+                    <table class="showtbl">
+                        <colgroup>
+                            <col width="30%" />
+                            <col width="70%" />
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="ZONE" />: </td>
+                                <td>
+                                    <div>
+                                        <div class="flt">
+                                            <select id="zoneID" name="zoneID" class="selform">
+                                                <option value=""><spring:message code="SELECT_OPTION" /></option>
+                                                <c:forEach items="${zoneList}" var="zone">
+                                                <option value="${zone.id}">${zone.name}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="flt pl7">&nbsp;</div>
+                                        <div class="clr"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="NAME" /></td>
+                                <td><form:input path="name" cssClass="txtform firstupper" autocomplete="off" /></td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="ACCOUNT_TYPE" /></td>
+                                <td>
+                                <select id="type" name="type" class="selform">
+                                    <option value=""><spring:message code="SELECT_OPTION" /></option>
+                                    <c:forEach items="${applicationScope.AccountType}" var="accountType">
+                                    <option value="${accountType.key}">${accountType.value}</option>
+                                    </c:forEach>
+                                </select>
+                                </td>
+                            </tr>
+<%--                             
+                            <tr>
+                                <td><spring:message code="LOGO" /></td>
+                                <td><form:input path="logo" cssClass="txtform" /></td>
+                            </tr> --%>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="ADDRESS" /></td>
+                                <td><form:textarea path="address" rows="5" cssClass="txtform firstupper" /></td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="CONTACT_PERSON" /></td>
+                                <td><form:input path="contact" cssClass="txtform firstupper" /></td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="EMAIL_ID" /></td>
+                                <td><form:input path="email" cssClass="txtform" /></td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="PHONES" /></td>
+                                <td><form:textarea path="phone" rows="3" cssClass="txtform" /></td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="SMS_LIMIT" /></td>
+                                <td><form:input path="smscap" cssClass="txtform" /></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td><input type="submit" value="<spring:message code="CREATE" />" class="btnform" /></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    </form:form>
+                </div>
+            </div>
+            <div class="clr"></div>
+
+
+
+
+
+
+
+
+
+SAMPLE PAGE FOR simple HTML REquest
+
+<%@ page language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<script type="text/javascript">
+<!--
+$(function() {
+    var cur = new Date();
+    $('#startDateTime').datetimepicker({
+        showAnim: 'slideDown',
+        dateFormat: 'yy-mm-dd', 
+        timeFormat: 'hh:mm:ss',
+        maxDate: new Date(),
+        onSelect: function(selectedDate) {
+            var min = $(this).datepicker("getDate");
+            min.setDate(min.getDate());
+            var max = $(this).datepicker("getDate");
+            max.setDate(max.getDate() + 7);
+            if(max >= cur) {
+                max = cur
+            }
+            $("#stopDateTime").datepicker("option", "minDate", min);
+            $("#stopDateTime").datepicker("option", "maxDate", max);
+        }
+    });
+    $('#stopDateTime').datetimepicker({
+        showAnim: 'slideDown',
+        dateFormat: 'yy-mm-dd', 
+        timeFormat: 'hh:mm:ss',
+        maxDate: new Date()
+    });
+});
+$(document).ready(function() {    
+    $('#report').submit(function() {
+        var assetID = $('#assetID').val();
+        if($.trim(assetID).length <= 0) {
+            $('#assetID').css('background', 'yellow');
+            $('#assetID').focus();
+            return false;
+        } else {
+            $('#assetID').css('background', 'white');
+        }
+        var startDateTime = $('#startDateTime').val();
+        if($.trim(startDateTime).length <= 0) {
+            $('#startDateTime').css('background', 'yellow');
+            $('#startDateTime').focus();
+            return false;
+        } else {
+            $('#startDateTime').css('background', 'white');
+        }
+        var stopDateTime = $('#stopDateTime').val();
+        if($.trim(stopDateTime).length <= 0) {
+            $('#stopDateTime').css('background', 'yellow');
+            $('#stopDateTime').focus();
+            return false;
+        } else {
+            $('#stopDateTime').css('background', 'white');
+        }
+        var speed = $('#speed').val();
+        if($.trim(speed).length <= 0) {
+            $('#speed').css('background', 'yellow');
+            $('#speed').focus();
+            return false;
+        } else {
+            $('#speed').css('background', 'white');
+        }
+    });    
+});
+//-->
+</script>
+            <div class="pageheader">
+                <a href="<c:url value="<%= session.getAttribute(\"HOME_URL\").toString() %>" />"><spring:message code="HOME" /></a> &raquo; 
+                <span class="lbl03"><spring:message code="OVERSPEED" /> <spring:message code="REPORT" /></span>
+            </div>
+            <div class="pageintern">
+                <div><span class="lbl04"><spring:message code="OVERSPEED" /> <spring:message code="REPORT" /></span></div>
+                <div class="showtblbox">
+                    <form id="report" name="report" method="post" action="<c:url value="/report/overspeedreport.html" />">
+                    <table class="showtbl">
+                        <colgroup>
+                            <col width="30%" />
+                            <col width="70%" />
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="ASSET" />: </td>
+                                <td>
+                                    <select id="assetID" name="assetID" class="selform">
+                                        <option value=""><spring:message code="SELECT_OPTION" /></option>
+                                        <c:forEach items="${assetList}" var="asset">
+                                        <option value="${asset.id}">${asset.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="START_DATETIME" /></td>
+                                <td><input type="text" id="startDateTime" name="startDateTime" class="txtform" value="" autocomplete="off" /></td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="STOP_DATETIME" /></td>
+                                <td><input type="text" id="stopDateTime" name="stopDateTime" class="txtform" value="" autocomplete="off" /></td>
+                            </tr>
+                            <tr>
+                                <td><span class="req"></span><spring:message code="SPEED" /></td>
+                                <td><input type="text" id="speed" name="speed" class="txtform" value="" autocomplete="off" /></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td><input type="submit" value="<spring:message code="GENERATE" />" class="btnform" /></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    </form>
+                </div>
+            </div>
+            <div class="clr"></div>
